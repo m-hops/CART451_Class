@@ -23,12 +23,46 @@ async function run() {
         const horrorFilmsDB = await db.collection('horrorFilms');
         console.log("success");
 
-        //MONO QUERY EXAMPLE ONE//
-        let ex1 =  await horrorFilmsDB.aggregate([
-            {$match:{title:'Event Horizon'}},
-            ]).toArray();
+        // //MONO QUERY EXAMPLE ONE//
+        // let ex1 = await horrorFilmsDB.findOne(
+        //     {title:'Event Horizon'}
+        // );
 
-            console.log(ex1);
+        // console.log(ex1);
+
+        // //MONO QUERY EXAMPLE TWO//
+        // let ex2 = await horrorFilmsDB.aggregate([
+        //     {$match:    {popularity: {$gte: 1000}}},
+        //     {$limit:    2}
+        // ]).toArray();
+
+        // console.log(ex2);
+
+        // //MONO QUERY EXAMPLE THREE//
+        // let ex3 = await horrorFilmsDB.distinct("original_language");
+
+        // console.log(ex3);
+
+        // //MONO QUERY EXAMPLE FOUR//
+        // let ex4 = await horrorFilmsDB.aggregate([
+        //     {$match:    {runtime:{$lte:  1}}},
+        //     {$group:    {_id:'$title', runtime: {$sum:'$runtime'}}}
+        // ]).toArray();
+
+        // console.log(ex4);
+
+        //MONO QUERY EXAMPLE FIVE//
+        let ex5 = await horrorFilmsDB.aggregate([
+            {$match:    {release_date: {$gt: new Date("2000-01-01")}}},
+            {$match:    {runtime: {$gte: 60}}},
+            {$match:    {popularity: {$gte: 500}}},
+            {$match:    {title: {$not: {$regex: "#"}}}},
+            {$project:  {_id: 0, title: 1, runtime: 1, popularity: {$round: ["$popularity", 0]}, release_date: {$dateToString: {format:"%Y-%m-%d", date: "$release_date"}}}},
+            {$sort:     {poularity: 1}},
+            {$limit:    10}
+        ]).toArray();
+
+        console.log(ex5);
 
     }catch(error){
         console.log(error);
