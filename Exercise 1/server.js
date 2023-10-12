@@ -51,18 +51,18 @@ async function run() {
 
         // console.log(ex4);
 
-        //MONO QUERY EXAMPLE FIVE//
-        let ex5 = await horrorFilmsDB.aggregate([
-            {$match:    {release_date: {$gt: new Date("2000-01-01")}}},
-            {$match:    {runtime: {$gte: 60}}},
-            {$match:    {popularity: {$gte: 500}}},
-            {$match:    {title: {$not: {$regex: "#"}}}},
-            {$project:  {_id: 0, title: 1, runtime: 1, popularity: {$round: ["$popularity", 0]}, release_date: {$dateToString: {format:"%Y-%m-%d", date: "$release_date"}}}},
-            {$sort:     {poularity: 1}},
-            {$limit:    10}
-        ]).toArray();
+        // //MONO QUERY EXAMPLE FIVE//
+        // let ex5 = await horrorFilmsDB.aggregate([
+        //     {$match:    {release_date: {$gt: new Date("2000-01-01")}}},
+        //     {$match:    {runtime: {$gte: 60}}},
+        //     {$match:    {popularity: {$gte: 500}}},
+        //     {$match:    {title: {$not: {$regex: "#"}}}},
+        //     {$project:  {_id: 0, title: 1, runtime: 1, popularity: {$round: ["$popularity", 0]}, release_date: {$dateToString: {format:"%Y-%m-%d", date: "$release_date"}}}},
+        //     {$sort:     {poularity: 1}},
+        //     {$limit:    10}
+        // ]).toArray();
 
-        console.log(ex5);
+        // console.log(ex5);
 
     }catch(error){
         console.log(error);
