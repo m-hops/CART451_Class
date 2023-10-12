@@ -2,11 +2,6 @@ body{
     font-family: 'Roboto', sans-serif;
 
 }
-h3{
-  margin-left:35%;
-  margin-top:3vh;
-  color:#8f246b;
-}
 input[type='text']{
     display:block;
     width:80%;
