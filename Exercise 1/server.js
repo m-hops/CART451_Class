@@ -10,6 +10,10 @@ const mongo_connection_url = process.env.MONGO_DB_URI;
 const {MongoClient} = require('mongodb');
 const client = new MongoClient(mongo_connection_url,{});
 
+let langSel = "es";
+let dateStart = "2000-01-01";
+let endDate = "2021-01-01";
+
 //MONGO CONNECTION//
 async function run() {
 
@@ -22,6 +26,31 @@ async function run() {
         const db = await client.db("exercise1");
         const horrorFilmsDB = await db.collection('horrorFilms');
         console.log("success");
+
+
+        //EXERCISE 1 CODE//
+        let dbQuery = await horrorFilmsDB.aggregate([
+            {$match:    {original_language: langSel}},
+            {$match:    {release_date: {$gte: new Date(dateStart), $lte: new Date(endDate)}}},
+            {$group:    {_id: null, pop_val: {$sum: "$popularity"}}},
+            {$project:  {_id: 0, popularity: {$round: ["$pop_val", 0]}}}
+        ]).toArray();
+
+        console.log(dbQuery);
+
+    }catch(error){
+        console.log(error);
+        
+    }finally{
+        await client.close();
+    }
+}
+
+run();
+
+
+
+//MONO QUERY EXAMPLES//
 
         // //MONO QUERY EXAMPLE ONE//
         // let ex1 = await horrorFilmsDB.findOne(
@@ -63,14 +92,3 @@ async function run() {
         // ]).toArray();
 
         // console.log(ex5);
-
-    }catch(error){
-        console.log(error);
-        
-    }finally{
-        await client.close();
-    }
-}
-
-run();
-
