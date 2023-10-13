@@ -1,34 +1,58 @@
 body{
-    font-family: 'Roboto', sans-serif;
 
+  font-family: 'Roboto', sans-serif;  
 }
-input[type='text']{
-    display:block;
-    width:80%;
-    margin-bottom:10px;
-    font-size:12px;
-  }
-  input[type='button']{
-    font-size:12px;
-    }
-    #parentContainer{
-        width:100%;
-        background: #eeeeee;
-        margin-top:2%;
-        padding:20px;
-    
-      }
-      
-      .addIn,.searchDiv{
-        background:#b82e8a;
-        border: 1px solid  #ebadd6;
-        width:40%;
-        padding:1%;
-        height:min-content;
-      }
-      .addIn p, .searchDiv p {
-        color:#ffffff;
-        font-size:18px;
-      }
- 
 
+canvas {
+  border: 1px solid black;
+  background-color: transparent;
+  width:100%;
+  height:100%;
+  z-index: 10;
+}
+
+input[type='text']{
+
+  display:block;
+  width:80%;
+  margin-bottom:10px;
+  font-size:12px;
+}
+  
+input[type='button']{
+
+  font-size:12px;
+}
+
+#parentContainer{
+
+  width:100%;
+  background: #eeeeee;
+  margin-top:2%;
+  padding:20px;
+}
+
+#simulationContainer{
+
+  width:50%;
+  height:500px;
+  background: #000000;
+  margin-top:2%;
+  padding:20px;
+}
+      
+.addIn,.searchDiv{
+
+  background:#b82e8a;
+  border: 1px solid  #ebadd6;
+  width:40%;
+  padding:1%;
+  height:min-content;
+}
+
+.addIn p, .searchDiv p {
+
+  color:#ffffff;
+  font-size:18px;
+}
+ 
