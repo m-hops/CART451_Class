@@ -1,3 +1,13 @@
+//HTML VALUES//
+// const langSel = document.getElementById('languageField');
+// const dateStart = document.getElementById('dateStartField').value;
+// const dateEnd = document.getElementById('dateEndField').value;
+
+const langSel = "en";
+const dateStart = "2020-01-01";
+const dateEnd = "2022-01-01";
+
+
 //EXPRESS SETUP//
 const express = require("express");
 const portNumber = 4200;
@@ -9,10 +19,6 @@ require('dotenv').config();
 const mongo_connection_url = process.env.MONGO_DB_URI;
 const {MongoClient} = require('mongodb');
 const client = new MongoClient(mongo_connection_url,{});
-
-let langSel = "es";
-let dateStart = "2000-01-01";
-let endDate = "2021-01-01";
 
 //MONGO CONNECTION//
 async function run() {
@@ -31,11 +37,11 @@ async function run() {
         //EXERCISE 1 CODE//
         let dbQuery = await horrorFilmsDB.aggregate([
             {$match:    {original_language: langSel}},
-            {$match:    {release_date: {$gte: new Date(dateStart), $lte: new Date(endDate)}}},
+            {$match:    {release_date: {$gte: new Date(dateStart), $lte: new Date(dateEnd)}}},
             {$group:    {_id: null, pop_val: {$sum: "$popularity"}}},
             {$project:  {_id: 0, popularity: {$round: ["$pop_val", 0]}}}
         ]).toArray();
-
+        //dbQuery[0].popularity;
         console.log(dbQuery);
 
     }catch(error){

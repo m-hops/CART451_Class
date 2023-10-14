@@ -1,5 +1,5 @@
 //CITATION: CODE TAKEN FROM https://dev.to/soorajsnblaze333/make-it-rain-in-html-canvas-1fj0//
-
+let mongoRain = 5;
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext('2d');
 const canvasHeight = canvas.height;
@@ -82,10 +82,10 @@ const raintype = {
   medium: { count: 250, speed: 0.4 },
   downpour: { count: 500, speed: 0.5 },
   afteshower: { count: 3, speed: 0.4 },
-  custom: { count: 10, speed: 0.4 }
+  custom: { count: mongoRain, speed: 0.4 }
 }
 
-const environment = {
+environment = {
   wind: createVector(-0.05, 0),
   raintype: raintype.custom,
 }
@@ -156,14 +156,18 @@ const getParticleX = function() {
 // init all objects here
 let raindrop = [];
 let particles = [];
-const raindropCount = environment.raintype.count;
+raindropCount = environment.raintype.count;
 
-for (let i = 0 ; i < raindropCount ; i++) {
-  let x = getRandomInteger(2, canvasWidth - 2);
-  let y = getRandomInteger(-2000 , 0);
-  // let accY = getRandomFloat(1, 5) * 0.05;
-  let accY = environment.raintype.speed;
-  raindrop[i] = new Raindrop(x, y, 1.3, accY);
+function init(count)
+{
+  raindropCount = count;
+  for (let i = 0 ; i < count ; i++) {
+    let x = getRandomInteger(2, canvasWidth - 2);
+    let y = getRandomInteger(-2000 , 0);
+    // let accY = getRandomFloat(1, 5) * 0.05;
+    let accY = environment.raintype.speed;
+    raindrop[i] = new Raindrop(x, y, 1.3, accY);
+  }
 }
 
 // initiate all draw functions here
@@ -200,5 +204,13 @@ const animate = function() {
 }
 
 // animation initiate
+init(raindropCount);
 setup();
 requestAnimationFrame(animate);
+
+
+function changeDropCount(count)
+{
+  init(count);
+  setup();
+}
