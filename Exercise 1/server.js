@@ -1,12 +1,6 @@
-//HTML VALUES//
-// const langSel = document.getElementById('languageField');
-// const dateStart = document.getElementById('dateStartField').value;
-// const dateEnd = document.getElementById('dateEndField').value;
-
 const langSel = "en";
 const dateStart = "2020-01-01";
 const dateEnd = "2022-01-01";
-
 
 //EXPRESS SETUP//
 const express = require("express");
@@ -33,7 +27,6 @@ async function run() {
         const horrorFilmsDB = await db.collection('horrorFilms');
         console.log("success");
 
-
         //EXERCISE 1 CODE//
         let dbQuery = await horrorFilmsDB.aggregate([
             {$match:    {original_language: langSel}},
@@ -41,7 +34,7 @@ async function run() {
             {$group:    {_id: null, pop_val: {$sum: "$popularity"}}},
             {$project:  {_id: 0, popularity: {$round: ["$pop_val", 0]}}}
         ]).toArray();
-        //dbQuery[0].popularity;
+
         console.log(dbQuery);
 
     }catch(error){

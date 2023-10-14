@@ -1,5 +1,6 @@
-//CITATION: CODE TAKEN FROM https://dev.to/soorajsnblaze333/make-it-rain-in-html-canvas-1fj0//
-let mongoRain = 5;
+//CITATION: CODE TAKEN AND ADAPTED FROM https://dev.to/soorajsnblaze333/make-it-rain-in-html-canvas-1fj0//
+let startRain = 1;
+
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext('2d');
 const canvasHeight = canvas.height;
@@ -8,6 +9,34 @@ const canvasWidth = canvas.width;
 const getRandomFloat = (min, max) => Math.random() * (max - min + 1) + min;
 const getRandomInteger = (min, max) => Math.floor(getRandomFloat(min, max));
 const createVector = (x, y) => { return { x, y } };
+
+//RUN SERVER QUERY//
+function queryServerButton() {
+
+  //GET CURRENT DOCUMENT VALUES//
+  let langSel = document.getElementById('languageField').value;
+  let dateStart = document.getElementById('dateStartField').value;
+  let dateEnd = document.getElementById('dateEndField').value;
+
+  //SEND QUERY TO MONGO//
+
+  //GET QUERY RESULTS//
+
+  //CHANGE CURRENT DOPLET COUNT//
+  changeDropCount(langSel);
+
+  //HTML TROUBLESHOOTING//
+  console.log("Lang = " + langSel);
+  console.log("Start Date = " + dateStart);
+  console.log("End Date = " + dateEnd);
+}
+
+const particleX = [-0.12, 0.06, 0, 0.06, 0.12];
+
+const getParticleX = function() {
+  const index = Math.floor(Math.random() * particleX.length);
+  return particleX[index];
+}
 
 const clearCanvas = (x, y, height, width) => {
   rectHeight = height || canvasHeight;
@@ -75,21 +104,6 @@ const checkRaindropCollision = (location, radius) => {
   return rain;
 }
 
-//CHANGE VALUE IN CUSTOM TO CHANGE RAIN//
-const raintype = {
-  drizzle: { count: 30, speed: 0.27 },
-  light: { count: 100, speed: 0.3 },
-  medium: { count: 250, speed: 0.4 },
-  downpour: { count: 500, speed: 0.5 },
-  afteshower: { count: 3, speed: 0.4 },
-  custom: { count: mongoRain, speed: 0.4 }
-}
-
-environment = {
-  wind: createVector(-0.05, 0),
-  raintype: raintype.custom,
-}
-
 class RainParticle {
   constructor(x, accX, accY){
     this.damping = 0.025;
@@ -147,10 +161,15 @@ class Raindrop {
   }
 }
 
-const particleX = [-0.12, 0.06, 0, 0.06, 0.12];
-const getParticleX = function() {
-  const index = Math.floor(Math.random() * particleX.length);
-  return particleX[index];
+//CHANGE VALUE IN CUSTOM TO CHANGE RAIN//
+let raintype = {
+  drizzle: { count: 30, speed: 0.27 },
+  custom: { count: startRain, speed: 0.4 }
+}
+
+environment = {
+  wind: createVector(-0.05, 0),
+  raintype: raintype.custom,
 }
 
 // init all objects here
@@ -214,3 +233,4 @@ function changeDropCount(count)
   init(count);
   setup();
 }
+
