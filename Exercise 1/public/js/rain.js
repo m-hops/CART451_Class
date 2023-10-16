@@ -1,5 +1,5 @@
 //CITATION: CODE TAKEN AND ADAPTED FROM https://dev.to/soorajsnblaze333/make-it-rain-in-html-canvas-1fj0//
-let startRain = 1;
+let newRainVal = 1;
 
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext('2d');
@@ -11,7 +11,7 @@ const getRandomInteger = (min, max) => Math.floor(getRandomFloat(min, max));
 const createVector = (x, y) => { return { x, y } };
 
 //RUN SERVER QUERY//
-function queryServerButton() {
+async function queryServerButton() {
 
   //GET CURRENT DOCUMENT VALUES//
   let langSel = document.getElementById('languageField').value;
@@ -19,12 +19,15 @@ function queryServerButton() {
   let dateEnd = document.getElementById('dateEndField').value;
 
   //SEND QUERY TO MONGO//
-
-  //GET QUERY RESULTS//
-
-  //CHANGE CURRENT DOPLET COUNT//
-  changeDropCount(langSel);
-
+  fetch('/sendData', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({data1: langSel, data2: dateStart, data3: dateEnd}),    
+  })
+  .then(response => response.json())
+  .then(data => {changeDropCount(data.popularity);})
+  .catch(err => {console.error('Error:', err)})
+  
   //HTML TROUBLESHOOTING//
   console.log("Lang = " + langSel);
   console.log("Start Date = " + dateStart);
@@ -164,7 +167,7 @@ class Raindrop {
 //CHANGE VALUE IN CUSTOM TO CHANGE RAIN//
 let raintype = {
   drizzle: { count: 30, speed: 0.27 },
-  custom: { count: startRain, speed: 0.4 }
+  custom: { count: newRainVal, speed: 0.4 }
 }
 
 environment = {

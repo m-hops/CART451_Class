@@ -1,11 +1,7 @@
-const langSel = "en";
-const dateStart = "2020-01-01";
-const dateEnd = "2022-01-01";
-
 //EXPRESS SETUP//
 const express = require("express");
-const portNumber = 4200;
 const app = express();
+const port = 3000;
 const server = require("http").createServer(app);
 require('dotenv').config();
 
@@ -14,11 +10,29 @@ const mongo_connection_url = process.env.MONGO_DB_URI;
 const {MongoClient} = require('mongodb');
 const client = new MongoClient(mongo_connection_url,{});
 
+let static = require('node-static');
+app.use(express.static(__dirname + '/public'));
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
+app.listen(port, () => {
+    console.log("Server is listening at port ${port}")
+})
+
+
 //MONGO CONNECTION//
 async function run() {
 
     try {
-        //INITIAL CONNECTION TO UPLOADED MONGO DB//
+      
+        app.post('/sendData', async(req, res) => {
+
+              //INITIAL CONNECTION TO UPLOADED MONGO DB//
         await client.connect();
         await client.db("exercise1").command({ping:1});
 
@@ -26,16 +40,22 @@ async function run() {
         const db = await client.db("exercise1");
         const horrorFilmsDB = await db.collection('horrorFilms');
         console.log("success");
-
+    
+        let data1 = req.body.data1;
+        let data2 = req.body.data2;
+        let data3 = req.body.data3;
+    
+        
         //EXERCISE 1 CODE//
         let dbQuery = await horrorFilmsDB.aggregate([
-            {$match:    {original_language: langSel}},
-            {$match:    {release_date: {$gte: new Date(dateStart), $lte: new Date(dateEnd)}}},
+            {$match:    {original_language: data1}},
+            {$match:    {release_date: {$gte: new Date(data2), $lte: new Date(data3)}}},
             {$group:    {_id: null, pop_val: {$sum: "$popularity"}}},
             {$project:  {_id: 0, popularity: {$round: ["$pop_val", 0]}}}
         ]).toArray();
 
-        console.log(dbQuery);
+        res.send(dbQuery[0]);
+    })
 
     }catch(error){
         console.log(error);
