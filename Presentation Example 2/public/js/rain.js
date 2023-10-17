@@ -1,5 +1,5 @@
 //CITATION: CODE TAKEN AND ADAPTED FROM https://dev.to/soorajsnblaze333/make-it-rain-in-html-canvas-1fj0//
-let newRainVal = 1;
+let newRainVal = 0;
 
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext('2d');

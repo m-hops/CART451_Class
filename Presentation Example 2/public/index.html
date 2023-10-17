@@ -13,10 +13,32 @@
     <div id = "parentContainer">
       <div class = "addIn">
       <form id = "inputField">
-       
-        <input type="text" id="q1" placeholder="In general, how masculine or “manly” do you feel?"><br>
-        <input type="text" id="q2" placeholder="How important is it to you that others see you as masculine?"><br>
-        <input type="text" id="q3" placeholder="Are you now married, widowed, divorced, separated, or have you never been married?"><br><br><br>
+
+        <label for="q1-select">In general, how masculine or “manly” do you feel?"</label><br> 
+          <select name="q1-select" id="q1"> 
+              <option value="Very masculine">Very masculine</option> 
+              <option value="Somewhat masculine">Somewhat masculine</option> 
+              <option value="Not very masculine">Not very masculine</option> 
+              <option value="Not at all masculine">Not at all masculine</option> 
+          </select><br><br> 
+
+          <label for="q2-select">How important is it to you that others see you as masculine?</label><br> 
+          <select name="q2-select" id="q2"> 
+              <option value="Very important">Very important</option> 
+              <option value="Somewhat important">Somewhat important</option> 
+              <option value="Not too important">Not too important</option> 
+              <option value="Not at all important">Not at all important</option> 
+          </select><br><br>
+
+          <label for="q3-select">Marital status</label><br> 
+          <select name="q3-select" id="q3"> 
+              <option value="Married">Married</option> 
+              <option value="Widowed">Widowed</option> 
+              <option value="Divorced">Divorced</option> 
+              <option value="Seperated">Seperated</option> 
+              <option value="Never married">Never married</option> 
+          </select><br><br><br>
+
         <input type="button" id="sendData" onClick="queryServerButton()" value="Run Experiment">
       </form>
       </div>
