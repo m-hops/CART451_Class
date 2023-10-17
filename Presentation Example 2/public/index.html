@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>EXERCISE 1</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/cs-style.css" />
+  </head> 
+
+  <body>
+    <div id = "parentContainer">
+      <div class = "addIn">
+      <form id = "inputField">
+       
+        <input type="text" id="q1" placeholder="In general, how masculine or “manly” do you feel?"><br>
+        <input type="text" id="q2" placeholder="How important is it to you that others see you as masculine?"><br>
+        <input type="text" id="q3" placeholder="Are you now married, widowed, divorced, separated, or have you never been married?"><br><br><br>
+        <input type="button" id="sendData" onClick="queryServerButton()" value="Run Experiment">
+      </form>
+      </div>
+    </div>
+    <div id = "simulationContainer">
+
+      <canvas id="canvas"></canvas>
+    </div>
+  </body>
+</html>
+
+<script src="js/rain.js"></script>
