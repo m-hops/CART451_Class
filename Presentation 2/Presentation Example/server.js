@@ -47,6 +47,7 @@ async function run() {
                 {$project:  {_id:0, total:1}}
             ]).toArray();
 
+            console.log(dbQuery);
             res.send(dbQuery[0]);
     })
 
