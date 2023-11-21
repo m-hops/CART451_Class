@@ -1,0 +1,5 @@
+#EventID|Time|Latitude|Longitude|Depth/km|Author|Catalog|Contributor|ContributorID|MagType|Magnitude|MagAuthor|EventLocationName
+ci37815440|2017-02-28T23:57:19.910|33.6675|-116.7353333|16.34|ci|ci|ci|ci37815440|ml|0.75|ci|8km S of Idyllwild, CA
+ak15424076|2017-02-28T23:48:28.645|61.5314|-141.0566|13|ak|ak|ak|ak15424076|ml|3.9|ak|179km E of Chitina, Alaska
+ak15424086|2017-02-28T23:48:26.979|61.3142|-140.4181|30|ak|ak|ak|ak15424086|ml|3.6|ak|169km WNW of Haines Junction, Canada
+us100085uh|2017-02-28T23:44:39.890|-2.744|129.2722|38.08|us|us|us|us100085uh|mb|4.4|us|76km NNE of Amahai, Indonesia

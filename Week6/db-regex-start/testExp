@@ -1,0 +1,19 @@
+\w is lowercase
+
+\bW(\w)+ -> begins with W
+(\w)+dangerous\b -> ends with dangerous
+(\w)+ nondangerous\b -> ends with nondangerous  -> will not work if a space comes directly before..
+(.)+(\s)+nondangerous\b -> ends with nondangerous  -> include at least 1 spaces ... 
+
+
+(\W)+(Sub).+ -> with sub (preceding a non alphanumeric)
+
+(\w)+(.)?(dangerous)\b -> 0 or more any chars except \n
+
+(.)+(\s)+(dangerous)\b -> 'dangerous' where the previous is a space
+
+//for second ...
+(.)+(\d)+$\b -> ends in 1 or more digits
+(.)+(\s)(\d)+$\b -> has only digits at end
+
+(.)+(\D)+$\b -> ends with non digit
